@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WarzoneTool_WPF"
         mc:Ignorable="d"
-        Title="WarzoneTool" Height="292.818" Width="471.689" Icon="icons8-call-of-duty-warzone-color-hand-drawn-310.png" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="WarzoneTool" Height="292.818" Width="482.689" Icon="icons8-call-of-duty-warzone-color-hand-drawn-310.png" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid Loaded="Grid_Loaded">
         <Button Content="Guardar cambios" HorizontalAlignment="Left" Margin="59,183,0,0" VerticalAlignment="Top" Width="135" Height="36" Click="Button_Click"/>
-        <Label x:Name="label1" Content="Label" Margin="39,94,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.008,-1.574" HorizontalAlignment="Left" Width="116"/>
-        <Label x:Name="label2" Content="Label" Margin="39,43,137,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textbox1" Height="23" Margin="175,97,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" RenderTransformOrigin="1.029,-2.043" HorizontalAlignment="Left" Width="58"/>
+        <Label x:Name="label1" Content="Núcleos asignados: " Margin="39,94,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.008,-1.574" HorizontalAlignment="Left" Width="146"/>
+        <Label x:Name="label2" Content="Tu procesador cuenta con  núcleos." Margin="39,43,137,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="checkbox1" Content="Hacer backup antes de guardar" HorizontalAlignment="Left" Margin="48,148,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <Button Content="Restaurar backup" HorizontalAlignment="Left" Margin="281,183,0,0" VerticalAlignment="Top" Width="135" Height="36" Click="Button_Click_1"/>
+        <Slider x:Name="trackBar1" HorizontalAlignment="Left" Margin="194,100,0,0" VerticalAlignment="Top" Width="220" IsSnapToTickEnabled="True" ValueChanged="trackBar1_ValueChanged"/>
 
     </Grid>
 </Window>

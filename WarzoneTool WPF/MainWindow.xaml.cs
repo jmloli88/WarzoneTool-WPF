@@ -30,39 +30,30 @@ namespace WarzoneTool_WPF
         string[] lines;
         int posicionnumero;
         int nucleos = Environment.ProcessorCount / 2;
-        char nucleosusados;
+        string nucleosusados;
         char[] numeros = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         string userprofile;
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
-            char[] nuevovalornucleos = textbox1.Text.ToCharArray();
             bool backup = (bool)checkbox1.IsChecked;
 
-            if (Convert.ToInt32(textbox1.Text) > nucleos)
+            if (backup = true)
             {
-                MessageBox.Show("No puede asignar mas de " + nucleos + " al juego.");
-            }
-            else
-            {
-                if (backup = true)
-                {
-                    System.IO.File.Copy(userprofile + "\\Documents\\Call of Duty Modern Warfare\\players\\adv_options.ini", userprofile + "\\Documents\\Call of Duty Modern Warfare\\players\\adv_options.ini.backup");
-                }
-
-                FileInfo fileInfo = new FileInfo(userprofile + "\\Documents\\Call of Duty Modern Warfare\\players\\adv_options.ini");
-                fileInfo.IsReadOnly = false;
-
-                lines[3] = lines[3].Replace(nucleosusados, nuevovalornucleos[0]);
-                File.WriteAllLines(userprofile + "\\Documents\\Call of Duty Modern Warfare\\players\\adv_options.ini", lines);
-                fileInfo.IsReadOnly = true;
-                //Console.WriteLine(lines[3]);
-                label2.Content = "Tu procesador cuenta con " + nucleos + " núcleos.\nTienes asignado " + textbox1.Text + " núcleos para el juego.";
-                MessageBox.Show("Se guardaron los cambios correctamente.");
+                System.IO.File.Copy(userprofile + "\\Documents\\Call of Duty Modern Warfare\\players\\adv_options.ini", userprofile + "\\Documents\\Call of Duty Modern Warfare\\players\\adv_options.ini.backup");
             }
 
-            
+            FileInfo fileInfo = new FileInfo(userprofile + "\\Documents\\Call of Duty Modern Warfare\\players\\adv_options.ini");
+            fileInfo.IsReadOnly = false;
+            lines[3] = lines[3].Substring(0, posicionnumero);
+            lines[3] = lines[3] + trackBar1.Value.ToString();
+            File.WriteAllLines(userprofile + "\\Documents\\Call of Duty Modern Warfare\\players\\adv_options.ini", lines);
+            fileInfo.IsReadOnly = true;
+
+            //Console.WriteLine(lines[3]);
+            label2.Content = "Tu procesador cuenta con " + nucleos + " núcleos.\nTienes asignado " + trackBar1.Value + " núcleos para el juego.";
+            MessageBox.Show("Se guardaron los cambios correctamente.");
+
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
@@ -71,17 +62,11 @@ namespace WarzoneTool_WPF
             lines = File.ReadAllLines(userprofile + "\\Documents\\Call of Duty Modern Warfare\\players\\adv_options.ini");
             //Console.WriteLine(lines[3]);
             posicionnumero = lines[3].IndexOfAny(numeros);
-            nucleosusados = lines[3].ElementAt(posicionnumero);
-
-            //en proceso para cuando el procesador tiene mas de 9 nucleos
-            //string digito2 = lines[3].ElementAt(posicionnumero + 1).ToString();
-            //string digitosjuntos = nucleosusados.ToString() + digito2;
-            //nucleosusados = char.Parse(digitosjuntos);
-
-            textbox1.Text = nucleosusados.ToString();
+            nucleosusados = lines[3].Substring(posicionnumero);
+            trackBar1.Maximum = nucleos;
             int nucleosusadosint = int.Parse(nucleosusados.ToString());
-
-            label1.Content = "Núcleos asignados: " + textbox1.Text;
+            trackBar1.Value = nucleosusadosint;
+            label1.Content = "Núcleos asignados: " + trackBar1.Value;
             label2.Content = "Tu procesador cuenta con " + nucleos + " núcleos.\nTienes asignado " + nucleosusados + " núcleos para el juego.";
         }
 
@@ -100,6 +85,18 @@ namespace WarzoneTool_WPF
             fileInfo.IsReadOnly = true;
 
             MessageBox.Show("Backup restaurado exitosamente.");
+        }
+
+        private void trackBar1_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (trackBar1.Value < 1)
+            {
+                MessageBox.Show("No puede asignar menos de 1 nucleo al juego.");
+                trackBar1.Value = 1;
+            }
+            
+                label1.Content = "Núcleos asignados: " + trackBar1.Value;
+            
         }
     }
 
