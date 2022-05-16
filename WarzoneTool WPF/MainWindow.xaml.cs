@@ -72,6 +72,12 @@ namespace WarzoneTool_WPF
             //Console.WriteLine(lines[3]);
             posicionnumero = lines[3].IndexOfAny(numeros);
             nucleosusados = lines[3].ElementAt(posicionnumero);
+
+            //en proceso para cuando el procesador tiene mas de 9 nucleos
+            //string digito2 = lines[3].ElementAt(posicionnumero + 1).ToString();
+            //string digitosjuntos = nucleosusados.ToString() + digito2;
+            //nucleosusados = char.Parse(digitosjuntos);
+
             textbox1.Text = nucleosusados.ToString();
             int nucleosusadosint = int.Parse(nucleosusados.ToString());
 
